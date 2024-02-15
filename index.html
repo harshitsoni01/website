@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Julia's Site</title>
@@ -8,23 +9,23 @@
     <style>
         body {
             font-family: 'Pacifico', cursive;
-            background-color: #E0F7FA; /* A light blue background */
+            background-color: #E0F7FA; 
             text-align: center;
             padding: 50px;
-            color: #0277BD; /* A deeper blue for text */
+            color: #0277BD;
         }
         h1, h2 {
-            color: #01579B; /* An even darker shade of blue for headers */
+            color: #01579B;
         }
         p {
             font-family: Arial, sans-serif;
-            color: #333; /* Keeping the paragraph text more readable */
+            color: #333;
         }
         .gallery img {
             width: 100%;
             max-width: 300px;
             margin: 10px;
-            border: 5px solid #81D4FA; /* A soft blue border around images */
+            border: 5px solid #81D4FA;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
@@ -59,6 +60,31 @@
         #prev { left: 0; }
         #next { right: 0; }
 
+        @keyframes float {
+            0% { transform: translatey(0px); }
+            50% { transform: translatey(-20px); }
+            100% { transform: translatey(0px); }
+        }
+
+        .heart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: #FF69B4;
+            animation: float 6s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .heart {
+                font-size: 30px;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -86,6 +112,14 @@
             document.getElementById("slider").style.transform = `translateX(${movePercentage}%)`;
         }
     </script>
+
+    <script>
+        document.querySelector('.heart').addEventListener('click', function() {
+            alert('I love you!');
+            // For more complex interactions, replace the alert with your custom modal/popup code
+        });
+    </script>
+    
                 
 
     <div class="slider-container">
@@ -172,5 +206,6 @@
     <p>As we step into another year, I look forward to more adventures, more laughs, and more magic moments with you. You're not just my Lilo to my Stitch; you're the cutie potato to my heart's stew—essential, delightful, and irreplaceably you.</p>
     <p>Every day with you shines brighter than the most polished diamond. Your beauty dazzles more than the stars we love to watch and plan to watch in our future adventures.</p>
     <p>Happy Valentine's Day, my beautiful cutie potato. I love you more than all the stars in all the universe. Here's to many more years of laughter, love, and creating unforgettable memories together.</p>
+    <i class="heart fas fa-heart" onclick="alert('I love you!')"></i>
 </body>
 </html>
