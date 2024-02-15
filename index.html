@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Valentine's Day, Julia!</title>
+    <title>Julia's Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
         body {
@@ -28,36 +28,37 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        .gallery {
-            position: relative;
-            max-width: 600px; /* Adjust based on your preference */
+        .slider-container {
+            overflow: hidden;
+            width: 75%; /* Adjust based on your layout */
             margin: auto;
         }
-        .slide img {
-            width: 100%; /* Makes images responsive */
-            border-radius: 8px;
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
         }
-        .prev, .next {
-            cursor: pointer;
+
+        .slide {
+            min-width: 33.333%; /* 3 slides visible at once */
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        button {
             position: absolute;
             top: 50%;
-            width: auto;
-            margin-top: -22px;
-            padding: 16px;
-            color: white;
-            font-weight: bold;
-            font-size: 18px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
+            transform: translateY(-50%);
+            background-color: #ddd;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            z-index: 100;
         }
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-        .prev:hover, .next:hover {
-            background-color: rgba(0,0,0,0.8);
-        }
+
+        #prev { left: 0; }
+        #next { right: 0; }
+
     </style>
 </head>
 <body>
@@ -67,42 +68,105 @@
         
     <h2>Our Year in Pictures</h2>
     <script>
-        var slideIndex = 1;
-        showSlide(slideIndex);
+        let index = 0;
         
-        function changeSlide(n) {
-            showSlide(slideIndex += n);
-        }
+        function moveSlides(n) {
+            const slides = document.getElementsByClassName("slide");
+            const totalSlides = slides.length;
+            const slidesToShow = 3; // Number of slides to show at once
+            index += n;
         
-        function showSlide(n) {
-            var i;
-            var slides = document.getElementsByClassName("slide");
-            if (n > slides.length) {slideIndex = 1}    
-            if (n < 1) {slideIndex = slides.length}
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
+            if (index < 0) {
+                index = totalSlides - slidesToShow;
+            } else if (index >= totalSlides - slidesToShow + 1) {
+                index = 0;
             }
-            slides[slideIndex-1].style.display = "block";  
+        
+            const movePercentage = -(100 / slidesToShow) * index;
+            document.getElementById("slider").style.transform = `translateX(${movePercentage}%)`;
         }
-    </script>        
+    </script>
+                
 
-    <div id="slider" class="gallery">
-        <h2>Our Journey Together</h2>
-        <div class="slide" id="slide-1">
-            <h3>January - The Beginning</h3>
-            <img src="/images/january.jpg" alt="January Memories">
-            <p>Our first adventure at my place for the first time.</p>
+    <div class="slider-container">
+        <div id="slider" class="slider">
+            <!-- January -->
+            <div class="slide">
+                <h3>January - The Beginning</h3>
+                <img src="/images/january.jpg" alt="January Memories">
+                <p>Our first adventure at my place for the first time.</p>
+            </div>
+            <!-- February -->
+            <div class="slide">
+                <h3>February - First Valentine</h3>
+                <img src="/images/february.jpg" alt="February Memories">
+                <p>Our memorable moment from our first Valentine.</p>
+            </div>
+            <!-- March -->
+            <div class="slide">
+                <h3>March - Easter</h3>
+                <img src="/images/march.jpg" alt="March Memories">
+                <p>Easter Break.</p>
+            </div>
+            <!-- April -->
+            <div class="slide">
+                <h3>April - Spring Blossoms</h3>
+                <img src="/images/april.jpg" alt="April Memories">
+                <p>Enjoying the spring blossoms together.</p>
+            </div>
+            <!-- May -->
+            <div class="slide">
+                <h3>May - Exam Season</h3>
+                <img src="/images/may.jpg" alt="May Memories">
+                <p>Supporting each other through exam season.</p>
+            </div>
+            <!-- June -->
+            <div class="slide">
+                <h3>June - New Jersey</h3>
+                <img src="/images/june.jpg" alt="June Memories">
+                <p>Summer trip to the zoo in New Jersey.</p>
+            </div>
+            <!-- July -->
+            <div class="slide">
+                <h3>July - NYC</h3>
+                <img src="/images/july.jpg" alt="July Memories">
+                <p>Exploring New York City's sights and sounds.</p>
+            </div>
+            <!-- August -->
+            <div class="slide">
+                <h3>August - Reunion</h3>
+                <img src="/images/august.jpg" alt="August Memories">
+                <p>Seeing each other after our first summer apart.</p>
+            </div>
+            <!-- September -->
+            <div class="slide">
+                <h3>September - Back to School</h3>
+                <img src="/images/september.jpg" alt="September Memories">
+                <p>Returning to school and our routine.</p>
+            </div>
+            <!-- October -->
+            <div class="slide">
+                <h3>October - Halloween</h3>
+                <img src="/images/october.jpg" alt="October Memories">
+                <p>Our first Halloween together.</p>
+            </div>
+            <!-- November -->
+            <div class="slide">
+                <h3>November - Diwali</h3>
+                <img src="/images/november.jpg" alt="November Memories">
+                <p>Celebrating Diwali, the festival of lights, together.</p>
+            </div>
+            <!-- December -->
+            <div class="slide">
+                <h3>December - Christmas</h3>
+                <img src="/images/december.jpg" alt="December Memories">
+                <p>Our first Christmas together, filled with joy and love.</p>
+            </div>
         </div>
-        <div class="slide" id="slide-2" style="display:none;">
-            <h3>February - First Valentine</h3>
-            <img src="/images/february.jpg" alt="February Memories">
-            <p>Our memorable moment from our first Valentine.</p>
-        </div>
-        <!-- Repeat for each month, changing id="slide-N" and content accordingly -->
-        <a class="prev" onclick="changeSlide(-1)">❮</a>
-        <a class="next" onclick="changeSlide(1)">❯</a>
     </div>
-    
+    <button id="prev" onclick="moveSlides(-1)">❮</button>
+    <button id="next" onclick="moveSlides(1)">❯</button>
+
     
     <h2>Looking Forward</h2>
     <p>As we step into another year, I look forward to more adventures, more laughs, and more magic moments with you. You're not just my Lilo to my Stitch; you're the cutie potato to my heart's stew—essential, delightful, and irreplaceably you.</p>
