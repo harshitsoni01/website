@@ -6,97 +6,96 @@
     <title>Julia's Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Pacifico', cursive;
-            background-color: #E0F7FA;
-            text-align: center;
-            padding: 50px;
-            color: #0277BD;
-            margin: 0;
-            padding-bottom: 100px; /* Added space for buttons */
-        }
+body {
+    font-family: 'Pacifico', cursive;
+    background-color: #E0F7FA;
+    text-align: center;
+    padding: 20px;
+    color: #0277BD;
+    margin: 0;
+}
 
-        h1, h2, h3 {
-            color: #01579B;
-            transition: color 0.5s ease;
-        }
+h1, h2, h3 {
+    color: #01579B;
+}
 
-        h1:hover, h2:hover, h3:hover {
-            color: #FF4081; /* A vibrant color on hover */
-        }
+p, .slide p {
+    font-family: Arial, sans-serif;
+    color: #333;
+}
 
-        p {
-            font-family: Arial, sans-serif;
-            color: #333;
-            transition: transform 0.3s ease;
-        }
+.gallery img, .slider .slide img {
+    width: 100%;
+    max-width: 100%; /* Adjust for mobile */
+    height: auto; /* Maintain aspect ratio */
+    margin: 10px auto;
+    border: 3px solid #81D4FA;
+    border-radius: 15px;
+}
 
-        .gallery img, .slider .slide img {
-            width: 100%;
-            max-width: 300px;
-            margin: 10px auto; /* Center images */
-            border: 5px solid #81D4FA;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.slider-container {
+    overflow: hidden;
+    width: 100%; /* Use full width on mobile */
+    margin: 20px auto;
+}
 
-        .gallery img:hover, .slider .slide img:hover {
-            transform: scale(1.05); /* Slightly enlarge images on hover */
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
+.slider {
+    display: flex;
+    flex-wrap: nowrap; /* Ensure slides are in a single line */
+    transition: transform 0.5s ease;
+}
 
-        .slider-container {
-            overflow: hidden;
-            max-width: 90%;
-            margin: 20px auto 40px;
-        }
+.slide {
+    width: 100%; /* Each slide takes full container width */
+    padding: 10px;
+    box-sizing: border-box;
+}
 
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
+button {
+    position: absolute;
+    top: 50%;
+    background-color: #ddd;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transform: translateY(-50%);
+}
 
-        .slide {
-            min-width: 100%;
-            box-sizing: border-box;
-            padding: 20px;
-            opacity: 0.7;
-            transition: opacity 0.5s ease;
-        }
+#prev, #next {
+    background-color: #0277BD;
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .slide:hover {
-            opacity: 1; /* Highlight the current slide */
-        }
+#prev { left: 10px; }
+#next { right: 10px; }
 
-        button {
-            position: fixed;
-            top: 50%;
-            background-color: #ddd;
-            border: 2px solid #0277BD;
-            padding: 10px 20px;
-            cursor: pointer;
-            z-index: 100;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0277BD;
-            color: #fff;
-            transform: scale(1.1);
-        }
-
-        #prev { left: 10px; }
-        #next { right: 10px; }
-
-        @media (max-width: 768px) {
-            .slider .slide img {
-                max-width: 95%;
-            }
-            .slide {
-                text-align: center;
-            }
-        }
+@media (max-width: 768px) {
+    .slider .slide img {
+        max-width: 90%; /* Smaller images on smaller screens */
+    }
+    .slide {
+        text-align: center;
+        padding: 5px;
+    }
+    .slide h3, .slide p {
+        font-size: smaller; /* Adjust text size for readability on small screens */
+    }
+    button {
+        top: auto;
+        bottom: 20px; /* Move buttons to bottom for easier access */
+        transform: translateY(0);
+    }
+    #prev, #next {
+        bottom: 10px; /* Adjust button position for thumb reach */
+    }
+}
 
     </style>
 </head>
