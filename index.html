@@ -6,102 +6,58 @@
     <title>Julia's Site</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
-body {
-    font-family: 'Pacifico', cursive;
-    background-color: #E0F7FA;
-    text-align: center;
-    padding: 20px;
-    color: #0277BD;
-    margin: 0;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-}
+        body {
+            font-family: 'Pacifico', cursive;
+            background-color: #E0F7FA; /* A light blue background */
+            text-align: center;
+            padding: 50px;
+            color: #0277BD; /* A deeper blue for text */
+        }
+        h1, h2 {
+            color: #01579B; /* An even darker shade of blue for headers */
+        }
+        p {
+            font-family: Arial, sans-serif;
+            color: #333; /* Keeping the paragraph text more readable */
+        }
+        .gallery img {
+            width: 100%;
+            max-width: 300px;
+            margin: 10px;
+            border: 5px solid #81D4FA; /* A soft blue border around images */
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .slider-container {
+            overflow: hidden;
+            width: 75%; /* Adjust based on your layout */
+            margin: auto;
+        }
 
-/* Revised styles for headings */
-h1, h2, h3 {
-    color: #01579B;
-    margin: 20px 0;
-}
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
 
-/* Updated paragraph styles */
-p, .slide p {
-    font-family: Arial, sans-serif;
-    color: #333;
-    margin: 10px 0;
-}
+        .slide {
+            min-width: 33.333%; /* 3 slides visible at once */
+            box-sizing: border-box;
+            padding: 20px;
+        }
 
-/* Adjusting gallery and slide images */
-.gallery img, .slider .slide img {
-    width: auto;
-    max-width: 90%; /* Allow some margin */
-    height: auto;
-    margin: 20px auto;
-    border: 3px solid #81D4FA;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
+        button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #ddd;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            z-index: 100;
+        }
 
-/* Slider and slide adjustments */
-.slider-container, .slider, .slide {
-    position: relative; /* For absolute positioning of children */
-    width: 100%;
-}
-
-.slider {
-    display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
-    /* gap: 20px; Space between slides */
-}
-
-.slide {
-    flex: 0 0 auto; /* Prevent slides from shrinking */
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-/* Button styles for clarity and accessibility */
-button {
-    background-color: #0277BD;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-button:hover {
-    background-color: #01579B;
-    transform: scale(1.1);
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .slide img {
-        max-width: 80%;
-    }
-}
-
-.heart {
-    position: fixed;
-    width: 50px;
-    height: 50px;
-    background-image: url('path_to_heart_image');
-    background-size: cover;
-    cursor: pointer;
-    animation: float 5s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(0, -20px); }
-    100% { transform: translate(0, 0); }
-}
+        #prev { left: 0; }
+        #next { right: 0; }
 
     </style>
 </head>
@@ -110,53 +66,7 @@ button:hover {
     <p>“Ohana means family, and family means nobody gets left behind or forgotten.” Just like how I can never leave behind my favorite cutie potato at the train station.</p>
     <p>Here's to over a year of us creating our own little ohana, filled with love, laughter, and countless Disney movie nights and also please comedy movies. And yes, before you ask, you're the Lilo to my Stitch—uniquely wonderful in every way.</p>
         
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            document.body.appendChild(heart);
-        
-            heart.onclick = function() {
-                alert("I love you!");
-            };
-        
-            // Randomly position the heart on the screen
-            function moveHeart() {
-                const x = Math.random() * (window.innerWidth - 50);
-                const y = Math.random() * (window.innerHeight - 50);
-                heart.style.left = x + 'px';
-                heart.style.top = y + 'px';
-            }
-        
-            moveHeart(); // Initial position
-            setInterval(moveHeart, 5000); // Move every 5 seconds
-        });
-    </script>
-        
     <h2>Our Year in Pictures</h2>
-
-    <script>
-        let index = 0; // Current slide index position
-        const slides = document.getElementsByClassName("slide");
-        const totalSlides = slides.length; // Total number of slides
-        
-        function moveSlides(n) {
-            index += n;
-            if (index >= totalSlides) {
-                index = 0; // Loop back to first slide
-            } else if (index < 0) {
-                index = totalSlides - 1; // Loop back to last slide
-            }
-        
-            // Calculate new position
-            const newTranslateValue = index * -100; // Assuming each slide is 100% of the viewport width
-            document.getElementById("slider").style.transform = `translateX(${newTranslateValue}%)`;
-        }
-        
-        // Initial call to position slides
-        moveSlides(0);
-        </script>
-<!--         
     <script>
         let index = 0;
         
@@ -175,7 +85,7 @@ button:hover {
             const movePercentage = -(100 / slidesToShow) * index;
             document.getElementById("slider").style.transform = `translateX(${movePercentage}%)`;
         }
-    </script> -->
+    </script>
                 
 
     <div class="slider-container">
