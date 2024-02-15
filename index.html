@@ -8,30 +8,48 @@
     <style>
         body {
             font-family: 'Pacifico', cursive;
-            background-color: #E0F7FA; /* A light blue background */
+            background-color: #E0F7FA;
             text-align: center;
             padding: 50px;
-            color: #0277BD; /* A deeper blue for text */
+            color: #0277BD;
+            margin: 0;
+            padding-bottom: 100px; /* Added space for buttons */
         }
-        h1, h2 {
-            color: #01579B; /* An even darker shade of blue for headers */
+
+        h1, h2, h3 {
+            color: #01579B;
+            transition: color 0.5s ease;
         }
+
+        h1:hover, h2:hover, h3:hover {
+            color: #FF4081; /* A vibrant color on hover */
+        }
+
         p {
             font-family: Arial, sans-serif;
-            color: #333; /* Keeping the paragraph text more readable */
+            color: #333;
+            transition: transform 0.3s ease;
         }
-        .gallery img {
+
+        .gallery img, .slider .slide img {
             width: 100%;
             max-width: 300px;
-            margin: 10px;
-            border: 5px solid #81D4FA; /* A soft blue border around images */
+            margin: 10px auto; /* Center images */
+            border: 5px solid #81D4FA;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .gallery img:hover, .slider .slide img:hover {
+            transform: scale(1.05); /* Slightly enlarge images on hover */
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
         .slider-container {
             overflow: hidden;
-            width: 75%; /* Adjust based on your layout */
-            margin: auto;
+            max-width: 90%;
+            margin: 20px auto 40px;
         }
 
         .slider {
@@ -40,24 +58,45 @@
         }
 
         .slide {
-            min-width: 33.333%; /* 3 slides visible at once */
+            min-width: 100%;
             box-sizing: border-box;
             padding: 20px;
+            opacity: 0.7;
+            transition: opacity 0.5s ease;
+        }
+
+        .slide:hover {
+            opacity: 1; /* Highlight the current slide */
         }
 
         button {
-            position: absolute;
+            position: fixed;
             top: 50%;
-            transform: translateY(-50%);
             background-color: #ddd;
-            border: none;
+            border: 2px solid #0277BD;
             padding: 10px 20px;
             cursor: pointer;
             z-index: 100;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
 
-        #prev { left: 0; }
-        #next { right: 0; }
+        button:hover {
+            background-color: #0277BD;
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        #prev { left: 10px; }
+        #next { right: 10px; }
+
+        @media (max-width: 768px) {
+            .slider .slide img {
+                max-width: 95%;
+            }
+            .slide {
+                text-align: center;
+            }
+        }
 
     </style>
 </head>
