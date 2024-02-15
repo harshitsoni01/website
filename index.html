@@ -13,57 +13,56 @@ body {
     padding: 20px;
     color: #0277BD;
     margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
+/* Revised styles for headings */
 h1, h2, h3 {
     color: #01579B;
+    margin: 20px 0;
 }
 
+/* Updated paragraph styles */
 p, .slide p {
     font-family: Arial, sans-serif;
     color: #333;
+    margin: 10px 0;
 }
 
+/* Adjusting gallery and slide images */
 .gallery img, .slider .slide img {
-    width: 100%;
-    max-width: 100%; /* Adjust for mobile */
-    height: auto; /* Maintain aspect ratio */
-    margin: 10px auto;
+    width: auto;
+    max-width: 90%; /* Allow some margin */
+    height: auto;
+    margin: 20px auto;
     border: 3px solid #81D4FA;
     border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.slider-container {
-    overflow: hidden;
-    width: 100%; /* Use full width on mobile */
-    margin: 20px auto;
+/* Slider and slide adjustments */
+.slider-container, .slider, .slide {
+    position: relative; /* For absolute positioning of children */
+    width: 100%;
 }
 
 .slider {
     display: flex;
-    flex-wrap: nowrap; /* Ensure slides are in a single line */
-    transition: transform 0.5s ease;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 20px; /* Space between slides */
 }
 
 .slide {
-    width: 100%; /* Each slide takes full container width */
+    flex: 0 0 auto; /* Prevent slides from shrinking */
     padding: 10px;
     box-sizing: border-box;
 }
 
+/* Button styles for clarity and accessibility */
 button {
-    position: absolute;
-    top: 50%;
-    background-color: #ddd;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    transform: translateY(-50%);
-}
-
-#prev, #next {
     background-color: #0277BD;
-    color: white;
+    border: none;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -71,30 +70,37 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.3s;
 }
 
-#prev { left: 10px; }
-#next { right: 10px; }
+button:hover {
+    background-color: #01579B;
+    transform: scale(1.1);
+}
 
+/* Mobile adjustments */
 @media (max-width: 768px) {
-    .slider .slide img {
-        max-width: 90%; /* Smaller images on smaller screens */
+    .slide img {
+        max-width: 80%;
     }
-    .slide {
-        text-align: center;
-        padding: 5px;
-    }
-    .slide h3, .slide p {
-        font-size: smaller; /* Adjust text size for readability on small screens */
-    }
-    button {
-        top: auto;
-        bottom: 20px; /* Move buttons to bottom for easier access */
-        transform: translateY(0);
-    }
-    #prev, #next {
-        bottom: 10px; /* Adjust button position for thumb reach */
-    }
+}
+
+.heart {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    background-image: url('path_to_heart_image');
+    background-size: cover;
+    cursor: pointer;
+    animation: float 5s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(0, -20px); }
+    100% { transform: translate(0, 0); }
 }
 
     </style>
@@ -104,7 +110,53 @@ button {
     <p>“Ohana means family, and family means nobody gets left behind or forgotten.” Just like how I can never leave behind my favorite cutie potato at the train station.</p>
     <p>Here's to over a year of us creating our own little ohana, filled with love, laughter, and countless Disney movie nights and also please comedy movies. And yes, before you ask, you're the Lilo to my Stitch—uniquely wonderful in every way.</p>
         
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            document.body.appendChild(heart);
+        
+            heart.onclick = function() {
+                alert("I love you!");
+            };
+        
+            // Randomly position the heart on the screen
+            function moveHeart() {
+                const x = Math.random() * (window.innerWidth - 50);
+                const y = Math.random() * (window.innerHeight - 50);
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+            }
+        
+            moveHeart(); // Initial position
+            setInterval(moveHeart, 5000); // Move every 5 seconds
+        });
+    </script>
+        
     <h2>Our Year in Pictures</h2>
+
+    <script>
+        let index = 0; // Current slide index position
+        const slides = document.getElementsByClassName("slide");
+        const totalSlides = slides.length; // Total number of slides
+        
+        function moveSlides(n) {
+            index += n;
+            if (index >= totalSlides) {
+                index = 0; // Loop back to first slide
+            } else if (index < 0) {
+                index = totalSlides - 1; // Loop back to last slide
+            }
+        
+            // Calculate new position
+            const newTranslateValue = index * -100; // Assuming each slide is 100% of the viewport width
+            document.getElementById("slider").style.transform = `translateX(${newTranslateValue}%)`;
+        }
+        
+        // Initial call to position slides
+        moveSlides(0);
+        </script>
+<!--         
     <script>
         let index = 0;
         
@@ -123,7 +175,7 @@ button {
             const movePercentage = -(100 / slidesToShow) * index;
             document.getElementById("slider").style.transform = `translateX(${movePercentage}%)`;
         }
-    </script>
+    </script> -->
                 
 
     <div class="slider-container">
