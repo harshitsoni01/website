@@ -1,88 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Julia's Site</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #01579B;
+            --secondary-color: #0277BD;
+            --background-color: #E0F7FA;
+            --border-color: #81D4FA;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
             font-family: 'Pacifico', cursive;
-            background-color: #E0F7FA; 
+            color: var(--primary-color);
+            margin: 1.5rem 0;
             text-align: center;
-            padding: 50px;
-            color: #0277BD;
-            overflow-x: hidden; /* Prevent horizontal scroll on smaller screens */
-
         }
-        h1, h2 {
-            color: #01579B;
-            padding: 0 10px; /* Add padding on smaller screens */
 
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
         }
+
         p {
-            font-family: Arial, sans-serif;
-            color: #333;
+            margin: 1rem 0;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .gallery img {
-            width: 100%;
-            max-width: 300px;
-            margin: 10px;
-            border: 5px solid #81D4FA;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+
         .slider-container {
+            position: relative;
             overflow: hidden;
-            width: 75%; /* Adjust based on your layout */
-            margin: auto;
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
         }
 
         .slider {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease-in-out;
         }
 
-
         .slide {
-            min-width: 100%; /* Each slide takes the full width of the container */
-            box-sizing: border-box;
-            padding: 20px;
-            text-align: center; /* Ensures content is centered */
+            min-width: 100%;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centers items vertically */
-            justify-content: center; /* Centers items horizontally */
+            align-items: center;
+            gap: 1rem;
         }
 
         .slide img {
-            width: auto; /* Auto width to maintain aspect ratio */
-            max-width: 90%; /* Limits image width to prevent overflow */
-            max-height: 400px; /* Limits image height to prevent very tall images, adjust as needed */
-            object-fit: contain; /* Ensures the image is scaled to maintain its aspect ratio */
-            margin-bottom: 20px; /* Adds some space below the image */
+            width: auto;
+            max-width: 90%;
+            max-height: 400px;
+            object-fit: contain;
+            border: 5px solid var(--border-color);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .slide img {
-                max-height: 200px; /* Smaller max-height for smaller screens */
-            }
+        .slide img:hover {
+            transform: scale(1.02);
         }
 
-        button {
+        .slide h3 {
+            margin: 1rem 0;
+            color: var(--secondary-color);
+        }
+
+        .navigation-button {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background-color: #ddd;
+            background-color: rgba(255, 255, 255, 0.8);
             border: none;
-            padding: 10px 20px;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.3s ease;
             z-index: 100;
         }
 
-        #prev { left: 0; }
-        #next { right: 0; }
+        .navigation-button:hover {
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        #prev { left: 10px; }
+        #next { right: 10px; }
+
+        .heart {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: #ff4081;
+            cursor: pointer;
+            animation: float 6s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .heart:hover {
+            transform: scale(1.2);
+        }
 
         @keyframes float {
             0% { transform: translatey(0px); }
@@ -90,146 +146,226 @@
             100% { transform: translatey(0px); }
         }
 
-        .heart {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-size: 40px;
-            color: red;
-            animation: float 6s ease-in-out infinite;
-            cursor: pointer;
-        }
-
         @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .slide img {
+                max-height: 300px;
+            }
+
             .heart {
                 font-size: 30px;
                 bottom: 10px;
                 right: 10px;
             }
+
+            .navigation-button {
+                width: 35px;
+                height: 35px;
+            }
         }
-
-
     </style>
 </head>
 <body>
-    <h1>Happy Valentine's Day, Julia!</h1>
-    <p>“Ohana means family, and family means nobody gets left behind or forgotten.” Just like how I can never leave behind my favorite cutie potato at the train station.</p>
-    <p>Here's to over a year of us creating our own little ohana, filled with love, laughter, and countless Disney movie nights and also please comedy movies. And yes, before you ask, you're the Lilo to my Stitch—uniquely wonderful in every way.</p>
+    <div class="container">
+        <h1>Happy Valentine's Day, Julia!</h1>
         
-    <h2>Our Year in Pictures</h2>
+        <p>"Ohana means family, and family means nobody gets left behind or forgotten." Just like how I can never leave behind my favorite cutie potato at the train station.</p>
+        <p>Here's to over a year of us creating our own little ohana, filled with love, laughter, and countless Disney movie nights and also please comedy movies. And yes, before you ask, you're the Lilo to my Stitch—uniquely wonderful in every way.</p>
+            
+        <h2>Our Years Together in Pictures</h2>
+        
+        <div class="slider-container">
+            <div id="slider" class="slider">
+                <!-- 2023 -->
+                <div class="slide">
+                    <h3>January 2023 - The Beginning</h3>
+                    <img src="/images/January.jpg" alt="January 2023 Memories">
+                    <p>Our first adventure at my place and the first time I cooked for you.</p>  
+                </div>
+                <div class="slide">
+                    <h3>February 2023 - First Valentine</h3>
+                    <img src="/images/February.jpg" alt="February Memories">
+                    <p>Our memorable moment from our first Valentine.</p>
+                </div>
+                <div class="slide">
+                    <h3>March 2023 - Skates</h3>
+                    <img src="/images/march.jpg" alt="March Memories">
+                    <p>The month I killed in skating 😜.</p>
+                </div>
+                <div class="slide">
+                    <h3>April 2023 - First Trip</h3>
+                    <img src="/images/april.jpg" alt="April Memories">
+                    <p>Enjoying the spring blossoms together.</p>
+                </div>
+                <div class="slide">
+                    <h3>May 2023 - Exam Season</h3>
+                    <img src="/images/may.png" alt="May Memories">
+                    <p>Supporting each other through exam season.</p>
+                </div>
+                <div class="slide">
+                    <h3>June 2023 - NYC</h3>
+                    <img src="/images/june.jpg" alt="June Memories">
+                    <p>Exploring New York City's sights and sounds. And also the least city part of the city.</p>
+                </div>
+                <div class="slide">
+                    <h3>July 2023 - New Jersey</h3>
+                    <img src="/images/july.jpg" alt="July Memories">
+                    <p>Summer trip to the zoo in New Jersey.</p>
+                </div>
+                <div class="slide">
+                    <h3>August 2023 - First time at your favorite place</h3>
+                    <img src="/images/august.jpg" alt="August Memories">
+                    <p>Seeing each other after our first summer apart.</p>
+                </div>
+                <div class="slide">
+                    <h3>September 2023 - Back to School</h3>
+                    <img src="/images/september.jpg" alt="September Memories">
+                    <p>Returning to school and our routine.</p>
+                </div>
+                <div class="slide">
+                    <h3>October 2023 - Halloween</h3>
+                    <img src="/images/october.jpg" alt="October Memories">
+                    <p>Our first Halloween together.</p>
+                </div>
+                <div class="slide">
+                    <h3>November 2023 - Lights</h3>
+                    <img src="/images/november.jpeg" alt="November Memories">
+                    <p>Our first photoshoot together, the funny kind 😄. Diwali, the festival of lights.</p>
+                </div>
+                <div class="slide">
+                    <h3>December 2023 - Christmas</h3>
+                    <img src="/images/December.jpg" alt="December 2023 Memories">
+                    <p>Our first Christmas together, filled with joy and love.</p>
+                </div>
+
+                <!-- 2024 -->
+                <div class="slide">
+                    <h3>January 2024 - Reunion</h3>
+                    <img src="/attachments/jan2024.jpg" alt="January 2024 Memories">
+                    <p>Starting the new year with a perfect date after winter break, making every moment count before our temporary goodbye.</p>
+                </div>
+
+                <div class="slide">
+                    <h3>February 2024 - Sweet Farewells</h3>
+                    <img src="/attachments/feb2024.jpg" alt="February 2024 Memories">
+                    <p>A small goodbye as I had to go to NYC, but distance only makes our hearts grow fonder. ❤️</p>
+                </div>
+
+                <div class="slide">
+                    <h3>March 2024 - Model Moments</h3>
+                    <img src="/attachments/march2024.jpg" alt="March 2024 Memories">
+                    <p>Capturing your beauty at Sturgeant Point, where every shot proved you're a natural in front of the camera. ✨</p>
+                </div>
+
+                <div class="slide">
+                    <h3>April 2024 - Dancing Queen</h3>
+                    <img src="/attachments/april2024.jpg" alt="April 2024 Memories">
+                    <p>You lit up the ballroom dance floor with Bollywood flair, making every step a celebration of us. 💃</p>
+                </div>
+
+                <div class="slide">
+                    <h3>May 2024 - Sweet Memories</h3>
+                    <img src="/attachments/may2024.jpg" alt="May 2024 Memories">
+                    <p>Joe's legendary lemonade became our treasure - the bottle remains as sweet as the memory of that day. 🍋</p>
+                </div>
+
+                <div class="slide">
+                    <h3>June 2024 - Surprise!</h3>
+                    <img src="/attachments/june2024.jpg" alt="June 2024 Memories">
+                    <p>The look on your face when I surprised you was priceless - a moment I'll cherish forever. 🎁</p>
+                </div>
+
+                <div class="slide">
+                    <h3>July 2024 - Birthday Magic</h3>
+                    <img src="/attachments/july2024.jpg" alt="July 2024 Memories">
+                    <p>Celebrating my birthday girl - making your special day as extraordinary as you are. 🎂</p>
+                </div>
+
+                <div class="slide">
+                    <h3>August 2024 - Island Adventures</h3>
+                    <img src="/attachments/aug2024.jpg" alt="August 2024 Memories">
+                    <p>Our magical vacation at 1000 Islands followed by the excitement of returning to school together. 🏝️</p>
+                </div>
+
+                <div class="slide">
+                    <h3>September 2024 - Style Queen</h3>
+                    <img src="/attachments/sept2024.jpg" alt="September 2024 Memories">
+                    <p>Your stunning new hairstyle on our date day proved once again that you can rock any look. 💇‍♀️</p>
+                </div>
+
+                <div class="slide">
+                    <h3>October 2024 - Festival Fun</h3>
+                    <img src="/attachments/oct2024.jpg" alt="October 2024 Memories">
+                    <p>From Garba nights to Halloween nights, and you looking absolutely adorable at our vacation - October was packed with joy! 🎃</p>
+                </div>
+
+                <div class="slide">
+                    <h3>October 2024 - YOU</h3>
+                    <img src="/attachments/oct24.jpg" alt="October 2024 Memories">
+                    <p>You looking absolutely adorable on my Kitchen Island, best picture!</p>
+                </div>
+
+                <div class="slide">
+                    <h3>November 2024 - Elegant Evening</h3>
+                    <img src="/attachments/nov24.jpg" alt="November 2024 Memories">
+                    <p>The ballroom dinner was magical, and those "fashionably late" flowers made it even more special. 🌹</p>
+                </div>
+
+                <div class="slide">
+                    <h3>December 2024 - Holiday Magic</h3>
+                    <img src="/attachments/dec2024.jpg" alt="December 2024 Memories">
+                    <p>From baking delicious cookies to enjoying your company - December was filled with festive joy and love. 🍪</p>
+                </div>
+
+                <div class="slide">
+                    <h3>December 2024 - Shaw's Theatre</h3>
+                    <img src="/attachments/dec24.jpg" alt="December 2024 Memories">
+                    <p>Special mention to enjoying theater performance🎭</p>
+                </div>
+
+
+            </div>
+            <button id="prev" class="navigation-button" onclick="moveSlides(-1)">❮</button>
+            <button id="next" class="navigation-button" onclick="moveSlides(1)">❯</button>
+        </div>
+
+        <h2>Looking Forward</h2>
+        <p>As we step into another year, I look forward to more adventures, more laughs, and more magic moments with you. You're not just my Lilo to my Stitch; you're the cutie potato to my heart's stew—essential, delightful, and irreplaceably you.</p>
+        <p>Every day with you shines brighter than the most polished diamond. Your beauty dazzles more than the stars we love to watch and plan to watch in our future adventures.</p>
+        <p>Happy Valentine's Day, my beautiful cutie potato. I love you more than all the stars in all the universe. Here's to many more years of laughter, love, and creating unforgettable memories together.</p>
+    </div>
+
+    <i class="heart fas fa-heart"></i>
+
     <script>
         let index = 0;
         
         function moveSlides(n) {
             const slides = document.getElementsByClassName("slide");
             const totalSlides = slides.length;
-            const slidesToShow = 1; // Number of slides to show at once
             index += n;
         
             if (index < 0) {
-                index = totalSlides - slidesToShow;
-            } else if (index >= totalSlides - slidesToShow + 1) {
+                index = totalSlides - 1;
+            } else if (index >= totalSlides) {
                 index = 0;
             }
         
-            const movePercentage = -(100 / slidesToShow) * index;
-            document.getElementById("slider").style.transform = `translateX(${movePercentage}%)`;
+            document.getElementById("slider").style.transform = `translateX(-${index * 100}%)`;
         }
-    </script>
 
-    <script>
         document.querySelector('.heart').addEventListener('click', function() {
-            alert('I love you!');
-            // For more complex interactions, replace the alert with your custom modal/popup code
+            this.style.transform = 'scale(1.3)';
+            setTimeout(() => this.style.transform = 'scale(1)', 200);
+            alert('I love you, Julia! - Harshit');
         });
     </script>
-    
-                
-
-    <div class="slider-container">
-        <div id="slider" class="slider">
-            <!-- 24th January -->
-            <div class="slide">
-                <h3>January - The Beginning</h3>
-                <img src="/images/January.jpg" alt="January Memories">
-                <p>Our first adventure at my place and the first time I cooked for you.</p>  
-            </div>
-            <!-- 14th February -->
-            <div class="slide">
-                <h3>February - First Valentine</h3>
-                <img src="/images/February.jpg" alt="February Memories">
-                <p>Our memorable moment from our first Valentine.</p>
-            </div>
-            <!-- 12th March -->
-            <div class="slide">
-                <h3>March - Skates</h3>
-                <img src="/images/march.jpg" alt="March Memories">
-                <p>The month I killed in skating 😜.</p>
-            </div>
-            <!-- 2nd April -->
-            <div class="slide">
-                <h3>April - First Trip</h3>
-                <img src="/images/april.jpg" alt="April Memories">
-                <p>Enjoying the spring blossoms together.</p>
-            </div>
-            <!-- 5th May -->
-            <div class="slide">
-                <h3>May - Exam Season</h3>
-                <img src="/images/may.png" alt="May Memories">
-                <p>Supporting each other through exam season.</p>
-            </div>
-            <!--17th June -->
-            <div class="slide">
-                <h3>June - NYC</h3>
-                <img src="/images/june.jpg" alt="June Memories">
-                <p>Exploring New York City's sights and sounds. And also the least city part of the city.</p>
-            </div>
-            <!-- July download -->
-            <div class="slide">
-                <h3>July - New Jersey</h3>
-                <img src="/images/july.jpg" alt="July Memories">
-                <p>Summer trip to the zoo in New Jersey.</p>
-            </div>
-            <!--5th August -->
-            <div class="slide">
-                <h3>August - First time at your favorite place</h3>
-                <img src="/images/august.jpg" alt="August Memories">
-                <p>Seeing each other after our first summer apart.</p>
-            </div>
-            <!--23rd September -->
-            <div class="slide">
-                <h3>September - Back to School</h3>
-                <img src="/images/september.jpg" alt="September Memories">
-                <p>Returning to school and our routine.</p>
-            </div>
-            <!-- 21st October -->
-            <div class="slide">
-                <h3>October - Halloween</h3>
-                <img src="/images/october.jpg" alt="October Memories">
-                <p>Our first Halloween together.</p>
-            </div>
-            <!--3rd November -->
-            <div class="slide">
-                <h3>November - Lights</h3>
-                <img src="/images/november.jpeg" alt="November Memories">
-                <p>Our first photoshoot together,the funny kind 😄. Diwali, the festival of lights.</p>
-            </div>
-            <!-- December -->
-            <div class="slide">
-                <h3>December - Christmas</h3>
-                <img src="/images/December.jpg" alt="December Memories">
-                <p>Our first Christmas together, filled with joy and love.</p>
-            </div>
-        </div>
-    </div>
-    <button id="prev" onclick="moveSlides(-1)">❮</button>
-    <button id="next" onclick="moveSlides(1)">❯</button>
-
-    
-    <h2>Looking Forward</h2>
-    <p>As we step into another year, I look forward to more adventures, more laughs, and more magic moments with you. You're not just my Lilo to my Stitch; you're the cutie potato to my heart's stew—essential, delightful, and irreplaceably you.</p>
-    <p>Every day with you shines brighter than the most polished diamond. Your beauty dazzles more than the stars we love to watch and plan to watch in our future adventures.</p>
-    <p>Happy Valentine's Day, my beautiful cutie potato. I love you more than all the stars in all the universe. Here's to many more years of laughter, love, and creating unforgettable memories together.</p>
-    <i class="heart fas fa-heart" onclick="alert('I love you, Julia! - Harshit')"></i>
 </body>
 </html>
